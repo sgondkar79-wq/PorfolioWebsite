@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahil Gondkar — Project Engineer | EPC & Supply Chain</title>
+<style>
+  :root{
+    --bg:#0e1116;
+    --bg-panel:#161b22;
+    --bg-panel-2:#1c2330;
+    --line:#2a313e;
+    --text:#e7eaf0;
+    --muted:#94a0b4;
+    --accent:#ff8a3d;   /* blueprint orange */
+    --accent-2:#4fa6ff; /* blueprint blue */
+    --mono:'JetBrains Mono', 'Courier New', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', 'Segoe UI', Arial, sans-serif;
+    line-height:1.6;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* subtle blueprint grid background */
+  .grid-bg{
+    position:fixed; inset:0; z-index:-1;
+    background-image:
+      linear-gradient(rgba(79,166,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,166,255,0.05) 1px, transparent 1px);
+    background-size:40px 40px;
+    pointer-events:none;
+  }
+
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,17,22,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
+  .logo{
+    font-family:var(--mono);
+    font-weight:700; font-size:1.1rem; letter-spacing:0.05em;
+    color:var(--text);
+  }
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:32px;font-size:0.92rem;color:var(--muted);}
+  .nav-links a:hover{color:var(--accent-2);}
+  .nav-cta{
+    border:1px solid var(--accent);
+    color:var(--accent);
+    padding:8px 18px;
+    border-radius:4px;
+    font-size:0.9rem;
+    font-family:var(--mono);
+    transition:.2s;
+  }
+  .nav-cta:hover{background:var(--accent);color:#0e1116;}
+  .menu-toggle{display:none;}
+
+  /* HERO */
+  .hero{
+    padding:100px 0 80px;
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    color:var(--accent-2);
+    font-size:0.85rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    display:inline-block;width:28px;height:1px;background:var(--accent-2);
+  }
+  .hero h1{
+    font-size:3.2rem;
+    line-height:1.15;
+    font-weight:800;
+    margin-bottom:18px;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .hl{color:var(--accent);}
+  .hero p.lead{
+    color:var(--muted);
+    font-size:1.05rem;
+    max-width:520px;
+    margin-bottom:30px;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+  .btn{
+    font-family:var(--mono);
+    font-size:0.9rem;
+    padding:13px 26px;
+    border-radius:4px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:.2s;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--accent);color:#0e1116;font-weight:600;}
+  .btn-primary:hover{background:#ffa869;}
+  .btn-outline{border:1px solid var(--line);color:var(--text);}
+  .btn-outline:hover{border-color:var(--accent-2);color:var(--accent-2);}
+
+  .stat-row{display:flex;gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+  .stat{
+    flex:1; padding:18px 20px;
+    border-right:1px solid var(--line);
+    background:var(--bg-panel);
+  }
+  .stat:last-child{border-right:none;}
+  .stat .num{font-size:1.5rem;font-weight:800;color:var(--accent);font-family:var(--mono);}
+  .stat .label{font-size:0.8rem;color:var(--muted);margin-top:2px;}
+
+  /* portrait */
+  .portrait{
+    position:relative;
+    display:flex; justify-content:center;
+  }
+  .portrait-frame{
+    width:300px; height:360px;
+    border:1px solid var(--accent-2);
+    border-radius:8px;
+    position:relative;
+    overflow:hidden;
+  }
+  .portrait-frame::before{
+    content:'';
+    position:absolute; inset:-1px;
+    border:1px dashed rgba(79,166,255,0.35);
+    border-radius:8px;
+    margin:14px;
+    pointer-events:none;
+  }
+  .portrait-frame img{
+    width:100%;height:100%;object-fit:cover;
+    filter:grayscale(15%) contrast(1.05);
+    display:block;
+  }
+  .corner-tag{
+    position:absolute;
+    font-family:var(--mono);
+    font-size:0.7rem;
+    color:var(--accent-2);
+    background:var(--bg);
+    padding:3px 8px;
+    border:1px solid var(--accent-2);
+    border-radius:3px;
+  }
+  .corner-tag.top{top:-12px;left:24px;}
+  .corner-tag.bottom{bottom:-12px;right:24px;}
+
+  /* SECTION GENERAL */
+  section{padding:80px 0;border-top:1px solid var(--line);}
+  .section-head{margin-bottom:48px;}
+  .section-head .eyebrow{margin-bottom:10px;}
+  .section-head h2{font-size:2.1rem;font-weight:800;}
+  .section-head p{color:var(--muted);margin-top:10px;max-width:640px;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+  .about-text p{color:var(--muted);margin-bottom:16px;}
+  .about-text strong{color:var(--text);}
+  .skills-box{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:28px;
+  }
+  .skills-box h3{
+    font-family:var(--mono);
+    font-size:0.85rem; letter-spacing:0.1em;
+    color:var(--accent-2); text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .skill-row{margin-bottom:16px;}
+  .skill-row:last-child{margin-bottom:0;}
+  .skill-row .skill-name{
+    display:flex;justify-content:space-between;
+    font-size:0.9rem; margin-bottom:6px;
+  }
+  .skill-row .skill-name span:last-child{color:var(--muted);font-family:var(--mono);font-size:0.8rem;}
+  .bar{height:6px;background:var(--bg-panel-2);border-radius:3px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--accent-2),var(--accent));border-radius:3px;}
+
+  .lang-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
+  .lang-tag{
+    font-family:var(--mono); font-size:0.78rem;
+    border:1px solid var(--line); color:var(--muted);
+    padding:6px 12px; border-radius:20px;
+  }
+  .lang-tag b{color:var(--text);}
+
+  /* EXPERIENCE TIMELINE */
+  .timeline{position:relative; padding-left:40px;}
+  .timeline::before{
+    content:'';
+    position:absolute; left:9px; top:6px; bottom:6px;
+    width:2px; background:var(--line);
+  }
+  .tl-item{position:relative; margin-bottom:48px;}
+  .tl-item:last-child{margin-bottom:0;}
+  .tl-dot{
+    position:absolute; left:-40px; top:4px;
+    width:20px;height:20px; border-radius:50%;
+    background:var(--bg-panel); border:2px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .tl-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  .tl-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px;}
+  .tl-role{font-size:1.15rem;font-weight:700;}
+  .tl-org{color:var(--accent-2);font-size:0.95rem;font-weight:600;}
+  .tl-meta{
+    font-family:var(--mono); font-size:0.78rem; color:var(--muted);
+    white-space:nowrap;
+  }
+  .tl-list{margin-top:12px; color:var(--muted); font-size:0.95rem;}
+  .tl-list li{margin-bottom:8px; padding-left:18px; position:relative;}
+  .tl-list li::before{
+    content:'→'; position:absolute; left:0; color:var(--accent); font-family:var(--mono);
+  }
+
+  /* EDUCATION + CERTS */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+  .card-list .card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:20px 24px;
+    margin-bottom:16px;
+  }
+  .card-list .card:last-child{margin-bottom:0;}
+  .card-title{font-weight:700;font-size:1rem;margin-bottom:4px;}
+  .card-sub{color:var(--accent-2);font-size:0.88rem;margin-bottom:4px;}
+  .card-meta{font-family:var(--mono);font-size:0.78rem;color:var(--muted);}
+
+  .cert-list{display:flex;flex-direction:column;gap:14px;}
+  .cert-item{
+    display:flex; align-items:center; gap:14px;
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:0.92rem;
+  }
+  .cert-icon{
+    width:34px;height:34px;border-radius:6px;
+    background:rgba(255,138,61,0.12);
+    color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono); font-weight:700; font-size:0.85rem;
+    flex-shrink:0;
+  }
+
+  /* CONTACT */
+  .contact-wrap{
+    display:grid; grid-template-columns:1fr 1fr; gap:40px;
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:48px;
+  }
+  .contact-wrap h2{font-size:2rem;font-weight:800;margin-bottom:14px;}
+  .contact-wrap p{color:var(--muted);margin-bottom:24px;}
+  .contact-links{display:flex;flex-direction:column;gap:16px;}
+  .contact-link{
+    display:flex; align-items:center; gap:14px;
+    padding:14px 18px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    transition:.2s;
+    font-size:0.95rem;
+  }
+  .contact-link:hover{border-color:var(--accent-2);background:var(--bg-panel-2);}
+  .contact-link .ico{
+    width:38px;height:38px;border-radius:6px;
+    background:var(--bg-panel-2);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--accent-2); flex-shrink:0;
+  }
+  .contact-link .lbl{color:var(--muted);font-size:0.75rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;}
+  .contact-link .val{font-weight:600;}
+
+  .availability-box{
+    border:1px dashed var(--accent-2);
+    border-radius:8px;
+    padding:18px 20px;
+    font-size:0.88rem;
+    color:var(--muted);
+    margin-top:24px;
+  }
+  .availability-box b{color:var(--accent-2);font-family:var(--mono);}
+
+  /* FOOTER */
+  footer{
+    border-top:1px solid var(--line);
+    padding:28px 0;
+    text-align:center;
+    color:var(--muted);
+    font-size:0.85rem;
+    font-family:var(--mono);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr; gap:40px; padding-top:60px;}
+    .hero h1{font-size:2.3rem;}
+    .portrait{order:-1;}
+    .portrait-frame{width:240px;height:290px;}
+    .about-grid,.two-col,.contact-wrap{grid-template-columns:1fr; gap:32px;}
+    .nav-links{display:none;}
+    .stat-row{flex-direction:column;}
+    .stat{border-right:none;border-bottom:1px solid var(--line);}
+    .stat:last-child{border-bottom:none;}
+    .contact-wrap{padding:28px;}
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">SG<span>.</span>EPC</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="nav-cta" href="assets/Sahil_Gondkar_CV.pdf" target="_blank">Resume ↓</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero wrap" style="border-top:none;">
+  <div>
+    <div class="eyebrow">Project Engineer · EPC &amp; Supply Chain</div>
+    <h1>Sahil Sachin <span class="hl">Gondkar</span></h1>
+    <p class="lead">
+      I run engineering projects the way I'd run a production line — on schedule, on budget,
+      with no surprises. Two years delivering an €80M EPC project end-to-end; now adding the
+      strategic layer with an M.Sc. in International Technology Transfer Management in Berlin.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#contact">Get in touch</a>
+      <a class="btn btn-outline" href="assets/Sahil_Gondkar_CV.pdf" target="_blank">Download CV</a>
+    </div>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">€80M</div>
+        <div class="label">EPC project delivered</div>
+      </div>
+      <div class="stat">
+        <div class="num">24</div>
+        <div class="label">Engineers coordinated</div>
+      </div>
+      <div class="stat">
+        <div class="num">9 mo</div>
+        <div class="label">Kick-off to commissioning</div>
+      </div>
+    </div>
+  </div>
+  <div class="portrait">
+    <div class="portrait-frame">
+      <span class="corner-tag top">PROFILE</span>
+      <img src="assets/photo.png" alt="Sahil Sachin Gondkar">
+      <span class="corner-tag bottom">REV 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Profile</div>
+      <h2>About Me</h2>
+      <p>From the shop floor to the program office — building the bridge between engineering execution and supply chain strategy.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I've managed an <strong>€80M EPC project</strong> from kick-off to commissioning,
+          coordinating <strong>24 engineers</strong> across procurement, design, and construction
+          in under 9 months. That's the foundation. Now I'm building the strategic layer.
+        </p>
+        <p>
+          Pursuing my <strong>M.Sc. in International Technology Transfer Management</strong> at
+          bbw Hochschule Berlin, I connect engineering execution to cross-border supply chains,
+          technology strategy, and innovation management.
+        </p>
+        <p><strong>What I bring to a Werkstudent role:</strong></p>
+        <p>
+          → EPC project lifecycle ownership (scheduling · procurement · vendor management · site execution)<br>
+          → Cross-functional coordination across engineering, logistics, and client teams<br>
+          → Tools: SAP MM/PP · Primavera P6 · MS Project · Six Sigma Green Belt · Kaizen
+        </p>
+        <p>
+          Actively looking for <strong>Werkstudent roles (20 hrs/week)</strong> in Technical
+          Project Management or Supply Chain — Berlin &amp; Hamburg. Valid student residence permit.
+        </p>
+        <div class="lang-tags">
+          <span class="lang-tag"><b>English</b> — C1</span>
+          <span class="lang-tag"><b>German</b> — A2, targeting B1</span>
+          <span class="lang-tag"><b>Marathi</b> — Native</span>
+          <span class="lang-tag"><b>Hindi</b> — Native</span>
+        </div>
+      </div>
+      <div class="skills-box">
+        <h3>Tools &amp; Methods</h3>
+        <div class="skill-row">
+          <div class="skill-name"><span>Primavera P6</span><span>Scheduling</span></div>
+          <div class="bar"><div class="bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>MS Project</span><span>Scheduling</span></div>
+          <div class="bar"><div class="bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>SAP MM / PP</span><span>Materials Mgmt</span></div>
+          <div class="bar"><div class="bar-fill" style="width:75%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>SOLIDWORKS</span><span>Design</span></div>
+          <div class="bar"><div class="bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Six Sigma Green Belt</span><span>Process</span></div>
+          <div class="bar"><div class="bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Kaizen / Lean</span><span>Process</span></div>
+          <div class="bar"><div class="bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Vendor &amp; Procurement Mgmt</span><span>Supply Chain</span></div>
+          <div class="bar"><div class="bar-fill" style="width:95%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Career</div>
+      <h2>Experience</h2>
+      <p>Engineering execution, vendor management, and team leadership across EPC, manufacturing, and student motorsport.</p>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div>
+            <div class="tl-role">Senior Project Engineer</div>
+            <div class="tl-org">Praj Industries · Pune</div>
+          </div>
+          <div class="tl-meta">Jul 2024 – Aug 2025 · 1 yr 2 mo</div>
+        </div>
+        <ul class="tl-list">
+          <li>Delivered an €80M EPC project end-to-end as single point of contact across 24 cross-functional engineers in design, procurement, and construction — commissioned within 9 months.</li>
+          <li>Reduced procurement and design costs by 8–12% by consolidating vendor selection, renegotiating supplier contracts, and streamlining design outsourcing workflows.</li>
+          <li>Eliminated invoice and payment delays by building billing schedules and cash flow statements aligned to contract milestones — zero payment disputes across the project duration.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div>
+            <div class="tl-role">Graduate Engineering Trainee — Outsourcing Engineer</div>
+            <div class="tl-org">Praj Industries · Pune</div>
+          </div>
+          <div class="tl-meta">Jul 2023 – Jul 2024 · 1 yr 1 mo</div>
+        </div>
+        <ul class="tl-list">
+          <li>Improved on-time delivery of brewery equipment (Unitanks, Heat Exchangers, Mash Kettles) by managing the end-to-end vendor pipeline, supplier identification, cost negotiation, and PO tracking.</li>
+          <li>Prevented shop-floor stoppages by maintaining live material shortage lists and vendor loading plans — resolving supply gaps before they escalated into production delays.</li>
+          <li>Drove cycle time and cost reduction through Kaizen and process improvement initiatives targeting procurement lead times.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div>
+            <div class="tl-role">Team Manager — Transmission System / Treasurer</div>
+            <div class="tl-org">Team Rivals 25 · BAJA SAE</div>
+          </div>
+          <div class="tl-meta">Feb 2021 – Feb 2023 · 2 yr 1 mo</div>
+        </div>
+        <ul class="tl-list">
+          <li>Led a 25-member student engineering team through full ATV 4WD development — coordinating powertrain, chassis, and design sub-teams to deliver a competition-ready vehicle on schedule.</li>
+          <li>Secured team sponsorships and managed the full project budget from build start to competition, controlling expenditure across a multi-year development cycle.</li>
+          <li>Worked in powertrain to achieve the required power output for the ATV's 4WD system.</li>
+          <li>Managed social media, video editing (Adobe Premiere Pro), and designed the team website.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div>
+            <div class="tl-role">Vice Chairperson</div>
+            <div class="tl-org">SAE Collegiate Club, PVPIT</div>
+          </div>
+          <div class="tl-meta">Jul 2022 – Jun 2023 · 1 yr</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div>
+            <div class="tl-role">Internship Trainee</div>
+            <div class="tl-org">Mahabal Metals Pvt. Ltd. · Miraj, Maharashtra</div>
+          </div>
+          <div class="tl-meta">May 2019 – Jun 2025 · 2 mo</div>
+        </div>
+        <ul class="tl-list">
+          <li>Gained shop-floor exposure at a major automotive components manufacturer supplying TELCO, Mahindra &amp; Mahindra, FIAT, Ashok Leyland, and Volkswagen.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION & CERTS -->
+<section id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Background</div>
+      <h2>Education &amp; Certifications</h2>
+    </div>
+    <div class="two-col">
+      <div class="card-list">
+        <h3 style="font-family:var(--mono);font-size:0.85rem;letter-spacing:0.1em;color:var(--accent-2);text-transform:uppercase;margin-bottom:18px;">Education</h3>
+        <div class="card">
+          <div class="card-title">M.Sc. International Technology Transfer Management</div>
+          <div class="card-sub">bbw Hochschule, Berlin</div>
+          <div class="card-meta">Oct 2025 – Oct 2027</div>
+        </div>
+        <div class="card">
+          <div class="card-title">B.Tech, Mechanical Engineering</div>
+          <div class="card-sub">Padmabhooshan Vasantraodada Patil Institute of Technology, Budhagaon</div>
+          <div class="card-meta">2020 – 2023</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Diploma, Mechanical Engineering</div>
+          <div class="card-sub">Sanjay Ghodawat Institute</div>
+          <div class="card-meta">2017 – 2020</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--mono);font-size:0.85rem;letter-spacing:0.1em;color:var(--accent-2);text-transform:uppercase;margin-bottom:18px;">Certifications</h3>
+        <div class="cert-list">
+          <div class="cert-item"><div class="cert-icon">PM</div> Project Management Professional (PMP)</div>
+          <div class="cert-item"><div class="cert-icon">SC</div> Supply Chain Operations</div>
+          <div class="cert-item"><div class="cert-icon">SW</div> SOLIDWORKS 2021 Essential Training</div>
+          <div class="cert-item"><div class="cert-icon">SAP</div> Learning SAP MM (Materials Management)</div>
+          <div class="cert-item"><div class="cert-icon">SAE</div> BAJA SAE 2022</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-wrap">
+      <div>
+        <div class="eyebrow">Get in touch</div>
+        <h2>Let's talk Werkstudent opportunities</h2>
+        <p>
+          Open to Werkstudent roles (20 hrs/week) in Technical Project Management or
+          Supply Chain — Berlin &amp; Hamburg. Valid student residence permit.
+        </p>
+        <div class="availability-box">
+          <b>STATUS</b> — Open to opportunities · Berlin / Hamburg · 20 hrs/week
+        </div>
+      </div>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:sgondkar79@gmail.com">
+          <div class="ico">@</div>
+          <div><div class="lbl">Email</div><div class="val">sgondkar79@gmail.com</div></div>
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/sahilgondkar" target="_blank">
+          <div class="ico">in</div>
+          <div><div class="lbl">LinkedIn</div><div class="val">linkedin.com/in/sahilgondkar</div></div>
+        </a>
+        <a class="contact-link" href="tel:+491632908940">
+          <div class="ico">☎</div>
+          <div><div class="lbl">Mobile</div><div class="val">+49 163 290 8940</div></div>
+        </a>
+        <a class="contact-link" href="#" onclick="return false;" style="cursor:default;">
+          <div class="ico">📍</div>
+          <div><div class="lbl">Location</div><div class="val">Metropolregion Berlin/Brandenburg</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Sahil Sachin Gondkar — Built for Werkstudent search · Berlin
+</footer>
+
+</body>
+</html>
